@@ -1,4 +1,7 @@
 <template>
+  <div id="etc-toast">
+
+  </div>
   <!--<transition name="cc-toast-fade"
               @after-leave="deleteEl">
     <div class="cc-toast"

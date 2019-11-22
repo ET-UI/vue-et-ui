@@ -2,10 +2,10 @@
 import '../style/common.scss';
 
 //组件
-import Toast from './Toast/index'
+import toast from './Toast/index'
 
 const components = [
-  Toast
+  toast
 ];
 
 let VueEtccbUi = {
@@ -20,5 +20,5 @@ export default VueEtccbUi;
 
 
 export {
-  Toast
+  toast
 };

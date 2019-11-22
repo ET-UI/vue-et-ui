@@ -1,8 +1,10 @@
 import toast from './toast.vue';
+
 export default {
   install(Vue) {
-    Vue.prototype.$toast = function(options) {
-      let Constructor = Vue.extend(toast), node;
+    Vue.prototype.$toast = function (options) {
+      let Constructor = Vue.extend(toast);
+      let node;
       /*if (typeof options === 'object' && options instanceof Object) {
         node = new Constructor({
           propsData: options
