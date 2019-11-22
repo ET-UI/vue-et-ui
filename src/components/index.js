@@ -1,5 +1,5 @@
 // 通用样式
-import '../style/common.scss';
+import '../style/index.scss';
 
 //组件
 import toast from './Toast/index'

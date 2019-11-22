@@ -3,20 +3,26 @@ import toast from './toast.vue';
 export default {
   install(Vue) {
     Vue.prototype.$toast = function (options) {
+      if (!options) {
+        return;
+      }
       let Constructor = Vue.extend(toast);
       let node;
-      /*if (typeof options === 'object' && options instanceof Object) {
+      let text = ""
+      if (typeof options === 'object' && options instanceof Object) {
         node = new Constructor({
           propsData: options
         });
-        node.$slots.default = [options.message];
+        text = options.text;
       } else if (typeof options === 'string') {
         node = new Constructor();
-        node.$slots.default = [options];
+        text = options;
       }
       node.vm = node.$mount();
-      node.vm.visible = true
-      document.body.appendChild(node.$el);*/
-    };
+      node.vm.visible = true;
+      node.vm.text = text;
+      document.body.appendChild(node.$el);
+      return node.vm;
+    }
   }
 };
