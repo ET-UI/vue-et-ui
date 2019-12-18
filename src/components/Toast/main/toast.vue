@@ -1,5 +1,5 @@
 <template>
-  <div class="etc-toast" :class="[toastType,{}]">
+  <div class="etc-toast" :class="[toastType,{}]" :style="zIndex?('z-index:'+zIndex):''">
     <div class="etc-toast__inner" :class="{visible:visible}">
       <div class="etc-toast__icon" v-if="type!='normal'">
 
@@ -74,9 +74,3 @@
     },
   };
 </script>
-<!--
-<style lang="scss" scoped>
-  .etc-toast {
-
-  }
-</style>-->

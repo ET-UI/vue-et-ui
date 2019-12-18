@@ -3,10 +3,11 @@ import App from './App.vue';
 import router from '@/router/router.js';
 
 import {
-  toast,
+  Toast, Alert
 } from './components/index';
 
-Vue.use(toast);
+Vue.use(Toast);
+Vue.use(Alert);
 
 Vue.config.productionTip = false;
 

@@ -1,3 +1,4 @@
+//顺时针旋转一周
 @keyframes rotating {
   0% {
     transform: rotateZ(0deg);
@@ -7,7 +8,7 @@
     transform: rotateZ(360deg);
   }
 }
-
+//放大
 @keyframes size {
   0% {
     transform: scale(1);
@@ -17,7 +18,7 @@
     transform: scale(1.1);
   }
 }
-
+//闪过
 @keyframes bling {
   0% {
     left: 0;
@@ -27,8 +28,6 @@
     left: 310%;
   }
 }
-
-
 @keyframes pass {
   0% {
     transform: rotate(-45deg) translate(0px);
