@@ -18,9 +18,7 @@
         type: String,
         default: "normal"
       },
-      autoClose: {//是否自动关闭
-        type: Boolean,
-        default: true
+      autoClose: {//是否自动关闭，布尔型/undefined
       },
       closeTime: {//关闭的延时
         type: Number,
@@ -35,10 +33,16 @@
       return {
         visible: false,
         timer: null,
-        text: ""
+        text: "",
+        cAutoClose: true,
       };
     },
     mounted() {
+      if (this.autoClose === undefined) {
+        this.cAutoClose = (this.type !== "loading");
+      } else {
+        this.cAutoClose = this.autoClose;
+      }
       this.init();
     },
     beforeDestroy() {
@@ -46,7 +50,7 @@
     },
     methods: {
       init() {
-        if (this.autoClose && Math.abs(this.closeTime) > 0) {
+        if (this.cAutoClose && Math.abs(this.closeTime) > 0) {
           this.timer = setTimeout(() => {
             this.close();
           }, Math.abs(this.closeTime));

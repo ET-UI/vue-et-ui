@@ -4,9 +4,11 @@ import '../style/index.scss';
 //组件
 import Toast from './Toast/index'
 import Alert from './Alert/index'
+import Confirm from './Confirm/index'
+import Dialog from './Dialog'
 
 const components = [
-  Toast, Alert
+  Toast, Alert, Confirm
 ];
 
 let VueEtccbUi = {
@@ -20,5 +22,5 @@ let VueEtccbUi = {
 export default VueEtccbUi;
 
 export {
-  Toast, Alert
+  Toast, Alert, Confirm
 };
