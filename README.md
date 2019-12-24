@@ -1,2 +1,2 @@
-# vue-etccb-ui
-ETC车宝UI
+# vue-et-ui
+外星人UI
