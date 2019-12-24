@@ -11,7 +11,7 @@ const components = [
   Toast, Alert, Confirm
 ];
 
-let VueEtccbUi = {
+let VueEtUi = {
   install(Vue) {
     components.forEach(component => {
       Vue.component(component.name, component);
@@ -19,8 +19,8 @@ let VueEtccbUi = {
   }
 };
 
-export default VueEtccbUi;
+export default VueEtUi;
 
 export {
-  Toast, Alert, Confirm
+  Toast, Alert, Confirm, Dialog
 };
