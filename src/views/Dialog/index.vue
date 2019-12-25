@@ -1,5 +1,5 @@
 <template>
-  <div class="dialog">
+  <div id="dialog">
     <div @click="showToast('normal')">
       toast
     </div>
@@ -22,7 +22,7 @@
       dialog
     </div>
 
-    <Dialog :show.sync="visibleDialog">
+    <Dialog :show.sync="visibleDialog" :show-close="true" type="white">
       test
     </Dialog>
   </div>
@@ -106,5 +106,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  #dialog {
+  }
 </style>

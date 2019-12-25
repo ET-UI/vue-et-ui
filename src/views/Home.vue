@@ -1,7 +1,10 @@
 <template>
   <div id="home">
-    <div>
-      <a href="javascript:;" @click="navTo('/dialog')">dialog</a>
+    <div @click="navTo('/dialog')">
+      dialog
+    </div>
+    <div @click="navTo('/btn')">
+      btn
     </div>
   </div>
 </template>
@@ -21,5 +24,7 @@
   }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+  #home {
+  }
 </style>

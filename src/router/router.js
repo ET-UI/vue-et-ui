@@ -4,6 +4,7 @@ import Router from 'vue-router'
 //组件模块
 import Home from '@/views/Home'
 import Dialog from '@/views/Dialog/index'
+import Btn from '@/views/Btn'
 
 Vue.use(Router)
 
@@ -13,5 +14,6 @@ export default new Router({
   routes: [
     {path: '/', name: 'home', component: Home},
     {path: '/dialog', name: 'dialog', component: Dialog},
+    {path: '/Btn', name: 'Btn', component: Btn},
   ]
 });

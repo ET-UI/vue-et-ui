@@ -1,13 +1,14 @@
 <template>
-  <div class="et-dialog" v-if="show">
-    <div class="et-dialog__mask" @click="hideClose?close():''">
+  <div class="et-dialog" v-if="show" :class="{'et-dialog--white':type==='white'}">
+    <div class="et-dialog__mask" @click="!showClose?close():''">
 
     </div>
     <div class="et-dialog__inner">
       <slot></slot>
     </div>
-    <div class="et-dialog__close" v-if="!hideClose" @click.stop="close()">
-      <img src="@/assets/images/icon_close.png" alt="">
+    <div class="et-dialog__close" v-if="showClose" @click.stop="close()">
+      <img src="@/assets/images/icon-close-gray.png" alt="" v-if="type==='white'">
+      <img src="@/assets/images/icon-close.png" alt="" v-else>
     </div>
   </div>
 </template>
@@ -16,7 +17,7 @@
   export default {
     name: "et-dialog",
     props: {
-      hideClose: {
+      showClose: {
         type: Boolean,
         default: false,
       },
@@ -24,15 +25,24 @@
         type: Boolean,
         default: false,
       },
+      //类型，normal普通，white白色
+      type: {
+        type: String,
+        default: "normal",
+      }
     },
     data() {
       return {}
     },
     methods: {
+      display() {
+        this.$emit('update:show', true);
+      },
       close() {
         this.$emit('update:show', false);
+        this.$emit('close');
       }
-    }
+    },
   }
 </script>
 
@@ -67,7 +77,12 @@
       position: relative;
       z-index: 1002;
       img {
-        width: 56px;
+        width: 66px;
+      }
+    }
+    &--white {
+      .et-dialog__mask {
+        background: #fff;
       }
     }
   }
