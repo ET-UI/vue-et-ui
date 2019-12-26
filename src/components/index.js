@@ -11,6 +11,7 @@ import Alert from './Alert/index'
 import Confirm from './Confirm/index'
 import Dialog from './Dialog'
 import Btn from './Btn'
+import Picker from './Picker'
 
 const components = [
   Toast, Alert, Confirm
@@ -27,5 +28,5 @@ let VueEtUi = {
 export default VueEtUi;
 
 export {
-  Toast, Alert, Confirm, Dialog, Btn
+  Toast, Alert, Confirm, Dialog, Btn, Picker
 };

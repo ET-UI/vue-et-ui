@@ -5,6 +5,7 @@ import Router from 'vue-router'
 import Home from '@/views/Home'
 import Dialog from '@/views/Dialog/index'
 import Btn from '@/views/Btn'
+import Picker from '@/views/Picker'
 
 Vue.use(Router)
 
@@ -14,6 +15,7 @@ export default new Router({
   routes: [
     {path: '/', name: 'home', component: Home},
     {path: '/dialog', name: 'dialog', component: Dialog},
-    {path: '/Btn', name: 'Btn', component: Btn},
+    {path: '/btn', name: 'btn', component: Btn},
+    {path: '/picker', name: 'picker', component: Picker},
   ]
 });

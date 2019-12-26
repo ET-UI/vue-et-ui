@@ -22,7 +22,7 @@
       dialog
     </div>
 
-    <Dialog :show.sync="visibleDialog" :show-close="true" type="white">
+    <Dialog :show.sync="visible" :show-close="true" type="white">
       test
     </Dialog>
   </div>
@@ -37,7 +37,7 @@
     },
     data() {
       return {
-        visibleDialog: false,
+        visible: false,
       }
     },
     mounted() {
@@ -100,7 +100,7 @@
         });
       },
       showDialog() {
-        this.visibleDialog = !this.visibleDialog;
+        this.visible = !this.visible;
       }
     }
   }

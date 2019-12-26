@@ -6,6 +6,9 @@
     <div @click="navTo('/btn')">
       btn
     </div>
+    <div @click="navTo('/picker')">
+      picker
+    </div>
   </div>
 </template>
 

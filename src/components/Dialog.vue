@@ -53,6 +53,7 @@
     left: 0;
     height: 100%;
     width: 100%;
+    overflow: hidden;
     transform: translate3d(0, 0, 0);
     z-index: 1001;
     display: flex;
