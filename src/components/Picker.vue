@@ -6,7 +6,7 @@
       <div class="et-picker__title">
         <div class="et-picker__title__left"
              v-if="!sync"
-             @click.stop="!sync?close():''">
+             @click.stop="!sync?cancel():''">
           取消
         </div>
         <div class="et-picker__title__mid">
@@ -82,6 +82,7 @@
     },
     data() {
       return {
+        oldValue: null,
         cList: [],
         listType: 0,//数据类型，0单列，1多列，2响应式
         swiperArr: [],
@@ -90,54 +91,7 @@
       }
     },
     mounted() {
-      this.cList = this.list;
-      if (this.cList) {
-        if (typeof this.cList[0] === 'string') {
-          this.listType = 0;
-        } else if (this.cList[0] instanceof Array) {
-          this.listType = 1;
-        } else {
-          this.listType = 2;
-        }
-      }
-      if (this.listType === 0) {
-        this.swiperIndexArr[0] = 0;
-        this.cList.every((item, index) => {
-          if (item == this.value) {
-            this.swiperIndexArr[0] = index;
-            return false;
-          }
-          return true;
-        });
-        this.valueArr = [this.value];
-      } else if (this.listType === 1) {
-        this.valueArr = this.value;
-        this.cList.forEach((item, index) => {
-          this.swiperIndexArr.push(0);
-          item.every((item2, index2) => {
-            if (item2 == this.value[index]) {
-              this.swiperIndexArr[index] = index2;
-              return false;
-            }
-            return true;
-          });
-        });
-      } else if (this.listType === 2) {
-        this.valueArr = this.value;
-        this.cList = [];
-        this.filterList(this.list);
-        this.cList.forEach((item, index) => {
-          this.swiperIndexArr.push(0);
-          item.every((item2, index2) => {
-            if (item2 == this.value[index]) {
-              this.swiperIndexArr[index] = index2;
-              return false;
-            }
-            return true;
-          });
-        });
-      }
-
+      this.init();
       if (this.show) {
         this.display();
       }
@@ -146,14 +100,65 @@
       this.swiperArr = [];
     },
     methods: {
+      init() {
+        this.cList = this.list;
+        if (this.cList) {
+          if (typeof this.cList[0] === 'string') {
+            this.listType = 0;
+          } else if (this.cList[0] instanceof Array) {
+            this.listType = 1;
+          } else {
+            this.listType = 2;
+          }
+        }
+        if (this.listType === 0) {
+          this.swiperIndexArr[0] = 0;
+          this.cList.every((item, index) => {
+            if (item == this.value) {
+              this.swiperIndexArr[0] = index;
+              return false;
+            }
+            return true;
+          });
+          this.valueArr = [this.value];
+        } else if (this.listType === 1) {
+          this.valueArr = JSON.parse(JSON.stringify(this.value));
+          this.cList.forEach((item, index) => {
+            this.swiperIndexArr.push(0);
+            item.every((item2, index2) => {
+              if (item2 == this.value[index]) {
+                this.swiperIndexArr[index] = index2;
+                return false;
+              }
+              return true;
+            });
+          });
+        } else if (this.listType === 2) {
+          this.valueArr = JSON.parse(JSON.stringify(this.value));
+          this.cList = [];
+          this.filterList(this.list);
+          this.cList.forEach((item, index) => {
+            this.swiperIndexArr.push(0);
+            item.every((item2, index2) => {
+              if (item2 == this.value[index]) {
+                this.swiperIndexArr[index] = index2;
+                return false;
+              }
+              return true;
+            });
+          });
+        }
+      },
       display() {
         setTimeout(() => {
           this.initSwiper();
         });
       },
-      initSwiper() {
+      initSwiper(isRefresh) {
         let that = this;
-        this.swiperArr = [];
+        if (!isRefresh) {
+          this.swiperArr = [];
+        }
         if (this.listType == 0) {
           this.swiperArr.push(new Swiper(this.$refs['swiper-0'], {
             initialSlide: that.swiperIndexArr[0],
@@ -163,7 +168,7 @@
             on: {
               slideChange: function () {
                 that.swiperIndexArr[0] = this.activeIndex;
-                that.valueArr[0] = that.cList[that.swiperIndexArr[0]];
+                that.valueArr.splice(0, 1, that.cList[that.swiperIndexArr[0]])
                 if (that.sync) {
                   that.syncValue();
                 }
@@ -180,7 +185,7 @@
               on: {
                 slideChange: function () {
                   that.swiperIndexArr[index] = this.activeIndex;
-                  that.valueArr[index] = that.cList[index][that.swiperIndexArr[index]];
+                  that.valueArr.splice(index, 1, that.cList[index][that.swiperIndexArr[index]])
                   if (that.sync) {
                     that.syncValue();
                   }
@@ -189,40 +194,56 @@
             }));
           })
         } else {
-          //TODO
-          let init3 = () => {
-            this.cList.forEach((item, index) => {
-              if (this.swiperArr[index]) {
-                this.swiperArr[index].update();
-              } else {
-                this.swiperArr[index] = new Swiper(this.$refs[`swiper-${index}`], {
-                  initialSlide: that.swiperIndexArr[index],
-                  direction: 'vertical',
-                  centeredSlides: true,
-                  slidesPerView: 5,
-                  on: {
-                    slideChange: function () {
-                      that.swiperIndexArr[index] = this.activeIndex;
-                      that.valueArr[index] = that.cList[index][that.swiperIndexArr[index]];
-                      if (that.sync) {
-                        that.syncValue();
-                      }
-                      that.cList = []
-                      that.filterList(that.list, 0);
-                      init3();
-                    }
-                  }
-                });
-              }
-            })
+          //当长度调整时
+          if (this.swiperArr.length != this.cList.length) {
+            this.swiperArr.forEach((item, index) => {
+              item && item.destroy();
+            });
+            this.swiperArr = [];
+            this.valueArr.splice(this.cList.length);
           }
-          init3();
+          this.cList.forEach((item, index) => {
+            if (item.indexOf(this.valueArr[index]) != this.swiperIndexArr[index]) {
+              this.valueArr[index] = item[0];
+              this.swiperIndexArr[index] = 0;
+              this.swiperArr[index] && this.swiperArr[index].slideTo(0);
+            }
+            if (this.swiperArr[index]) {
+              this.swiperArr[index].update();
+            } else {
+              this.swiperArr.splice(index, 1, new Swiper(this.$refs[`swiper-${index}`], {
+                initialSlide: that.swiperIndexArr[index],
+                direction: 'vertical',
+                centeredSlides: true,
+                slidesPerView: 5,
+                on: {
+                  slideChange: function () {
+                    that.swiperIndexArr[index] = this.activeIndex;
+                    that.valueArr.splice(index, 1, that.cList[index][that.swiperIndexArr[index]])
+                    if (that.sync) {
+                      that.syncValue();
+                    }
+
+                    that.cList = []
+                    that.filterList(that.list, 0);
+                    setTimeout(() => {
+                      that.initSwiper(true);
+                    });
+                  }
+                }
+              }));
+            }
+          })
         }
       },
       close() {
         this.swiperArr = [];
         this.$emit('update:show', false);
         this.$emit('close');
+      },
+      cancel() {
+        this.$emit("input", this.oldValue);
+        this.close();
       },
       ok() {
         this.syncValue();
@@ -261,6 +282,8 @@
     watch: {
       show() {
         if (this.show) {
+          this.oldValue = JSON.parse(JSON.stringify(this.value));
+          this.init();
           this.display();
         }
       }
