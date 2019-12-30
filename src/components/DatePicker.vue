@@ -101,110 +101,68 @@
       //初始化数据
       init() {
         let cur = new Date();
-        // let startDate = new Date("1970/01/01 00:00:00");
+        let startDate = new Date();
+        startDate.setFullYear(cur.getFullYear() - 5);
+        startDate = new Date(startDate);
         let endDate = new Date();
-        endDate.setFullYear(cur.getFullYear() + 10);
+        endDate.setFullYear(cur.getFullYear() + 5);
         endDate = new Date(endDate);
         //处理2月29日的10年后没有2月29日，变为2月28日
         if (cur.getMonth() != endDate.getMonth()) {
           endDate.setDate(endDate.getDate() - 1);
         }
         if (this.range === undefined) {
-          this.cRange = ["1970/01/01 00:00:00", formatDate(endDate, "yyyy/MM/dd") + " 23:59:59"]
+          this.cRange = [formatDate(startDate, "yyyy/MM/dd") + " 00:00:00", formatDate(endDate, "yyyy/MM/dd") + " 23:59:59"]
         } else {
           this.cRange[0] = this.range[0] ? this.range[0].replace(/-/g, "/") : '';
           this.cRange[1] = this.range[1] ? this.range[1].replace(/-/g, "/") : '';
           if (!this.cRange[0] && this.cRange[1]) {
-            this.cRange = ["1970/01/01 00:00:00", this.cRange[1]];
+            this.cRange = [formatDate(startDate, "yyyy/MM/dd") + " 00:00:00", this.cRange[1]];
           } else if (this.cRange[0] && !this.range[1]) {
             this.cRange = [this.cRange[0], formatDate(endDate, "yyyy/MM/dd") + " 23:59:59"];
-          } else {
-            this.cRange = this.cRange;
           }
         }
 
         // 数据起始日期
         let startListDate = new Date(this.cRange[0]);
         let endListDate = new Date(this.cRange[1]);
-        this.pickerList = this.initData([
-          [
-            startListDate.getFullYear(),
-            startListDate.getMonth() + 1,
-            startListDate.getDate(),
-          ],
-          [
-            endListDate.getFullYear(),
-            endListDate.getMonth() + 1,
-            endListDate.getDate(),
-          ],
-        ])
-
-        /*
-        let startYear = startListDate.getFullYear();
-        let endYear = endListDate.getFullYear();
-        while (startYear <= endYear) {
-          let yearObj = {};
-          yearObj[startYear] = [];
-
-          //起始月
-          let startMonth = 1;
-          if (startYear === startListDate.getFullYear()) {
-            startMonth = startListDate.getMonth() + 1;
-          }
-          //终结日
-          let endMonth = 12;
-          if (startYear === endListDate.getFullYear()) {
-            endMonth = endListDate.getMonth() + 1;
-          }
-          while (startMonth <= endMonth) {
-            let monthObj = {};
-            monthObj[(startMonth + "").padStart("2", "0")] = [];
-
-            //起始日
-            let startDay = 1;
-            if (startYear === startListDate.getFullYear()
-                && startMonth === startListDate.getMonth() + 1) {
-              startDay = startListDate.getDate();
-            }
-
-            //终结日
-            let lastDay = 28;
-            if (startYear === endListDate.getFullYear()
-                && startMonth === endListDate.getMonth() + 1) {
-              lastDay = endListDate.getDate();
-            } else {
-              let tempDate = new Date();
-              tempDate.setDate(1);
-              tempDate.setMonth(startMonth);
-              tempDate.setFullYear(startYear);
-              tempDate.setDate(tempDate.getDate() - 1);
-              lastDay = tempDate.getDate();
-            }
-            while (startDay <= lastDay) {
-              let dayObj = {};
-              if (this.type === "time") {
-                dayObj[(startDay + "").padStart("2", "0")] =
-                    this.initTimeData(startMonth, startMonth, startDay);
-              } else {
-                dayObj = (startDay + "").padStart("2", "0");
-              }
-              monthObj[(startMonth + "").padStart("2", "0")].push(dayObj);
-              startDay++;
-            }
-
-            yearObj[startYear].push(monthObj);
-            startMonth++;
-          }
-          this.pickerList.push(yearObj);
-          startYear++;
-        }*/
+        if (this.type === 'date') {
+          this.pickerList = this.initData([
+            [
+              startListDate.getFullYear(),
+              startListDate.getMonth() + 1,
+              startListDate.getDate(),
+            ],
+            [
+              endListDate.getFullYear(),
+              endListDate.getMonth() + 1,
+              endListDate.getDate(),
+            ],
+          ]);
+        } else if (this.type === 'time') {
+          this.pickerList = this.initData([
+            [
+              startListDate.getFullYear(),
+              startListDate.getMonth() + 1,
+              startListDate.getDate(),
+              startListDate.getHours(),
+              startListDate.getMinutes(),
+            ],
+            [
+              endListDate.getFullYear(),
+              endListDate.getMonth() + 1,
+              endListDate.getDate(),
+              endListDate.getHours(),
+              endListDate.getMinutes(),
+            ],
+          ]);
+        }
       },
-      // deep
       initData(range = [], cur = [], deep = 0) {
         let r = [];
         let start;
         let end;
-        console.log(cur, deep);
+        // console.log(range, deep);
         switch (deep) {
           case 0: {//年
             start = range[0][deep];
@@ -239,6 +197,38 @@
               tempDate.setFullYear(cur[0]);
               tempDate.setDate(tempDate.getDate() - 1);
               end = tempDate.getDate();
+            }
+            break;
+          }
+          case 3: {//时
+            start = 0;
+            if (cur[0] == range[0][0]
+                && cur[1] == range[0][1]
+                && cur[2] == range[0][2]) {
+              start = range[0][deep];
+            }
+            end = 23;
+            if (cur[0] == range[1][0]
+                && cur[1] == range[1][1]
+                && cur[2] == range[1][2]) {
+              end = range[1][deep];
+            }
+            break;
+          }
+          case 4: {//分
+            start = 0;
+            if (cur[0] == range[0][0]
+                && cur[1] == range[0][1]
+                && cur[2] == range[0][2]
+                && cur[3] == range[0][3]) {
+              start = range[0][deep];
+            }
+            end = 59;
+            if (cur[0] == range[1][0]
+                && cur[1] == range[1][1]
+                && cur[2] == range[1][2]
+                && cur[3] == range[0][3]) {
+              end = range[1][deep];
             }
             break;
           }

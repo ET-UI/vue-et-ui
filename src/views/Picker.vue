@@ -46,11 +46,11 @@
                 :range="['2018-11-15','2020-03-15']"
                 :show.sync="visible4"></DatePicker>
     <!--日期picker-时间-->
-    <!--<DatePicker v-model="value5"
+    <DatePicker v-model="value5"
                 :sync="true"
                 type="time"
                 title="日期picker-时间"
-                :show.sync="visible5"></DatePicker>-->
+                :show.sync="visible5"></DatePicker>
   </div>
 </template>
 
