@@ -39,6 +39,7 @@
                 :sync="true"
                 title="日期picker"
                 format="yyyy-MM-dd"
+                :range="['2018-11-15','2020-01-15']"
                 :show.sync="visible4"></DatePicker>
   </div>
 </template>
@@ -81,7 +82,7 @@
         list3: [
           {
             "选项1": [
-              '子项1',
+              {'子项1': ['孙项1', '孙项1.1', '孙项2', '孙项3']},
               '子项2'
             ]
           },

@@ -134,7 +134,7 @@
           this.cList = [];
           this.filterList(this.list);
           this.cList.forEach((item, index) => {
-            this.swiperIndexArr.push(0);
+            this.swiperIndexArr.splice(index, 1, 0);
             item.every((item2, index2) => {
               if (item2 == this.value[index]) {
                 this.swiperIndexArr[index] = index2;
@@ -200,8 +200,8 @@
           }
           this.cList.forEach((item, index) => {
             if (item.indexOf(this.valueArr[index]) != this.swiperIndexArr[index]) {
-              this.valueArr[index] = item[0];
-              this.swiperIndexArr[index] = 0;
+              this.valueArr.splice(index, 1, item[0]);
+              this.swiperIndexArr.splice(index, 1, 0);
               this.swiperArr[index] && this.swiperArr[index].slideTo(0);
             }
             if (this.swiperArr[index]) {
@@ -214,7 +214,7 @@
                 slidesPerView: 5,
                 on: {
                   slideChange: function () {
-                    that.swiperIndexArr[index] = this.activeIndex;
+                    that.swiperIndexArr.splice(index, 1, this.activeIndex);
                     that.valueArr.splice(index, 1, that.cList[index][that.swiperIndexArr[index]])
                     if (that.sync) {
                       that.syncValue();
@@ -257,18 +257,32 @@
       },
       //递归过滤数据
       filterList(data, deep = 0) {
-        this.cList.push([]);
+        this.cList.splice(deep, 1, []);
         data.forEach((item, index) => {
           let val = "";
           if (typeof item === "string") {
             val = item;
           } else {
-            for (let key in item) {
-              val = key;
+            let key = Object.keys(item)[0];
+            val = key;
+            //校验数组，检测当前选择是否可选
+            let checkArray = data.filter(item2 => {
+              let key2 = "";
+              if (typeof item2 === "string") {
+                key2 = item2;
+              } else {
+                key2 = Object.keys(item2)[0];
+              }
+              return key2 == this.valueArr[deep];
+            });
+            if (checkArray.length > 0) {
               if (key === this.valueArr[deep]) {
                 this.filterList(item[key], deep + 1);
               }
-              break;
+            } else {
+              let firstItem = data[0];
+              let firstKey = Object.keys(data[0])[0];
+              this.filterList(firstItem[firstKey], deep + 1);
             }
           }
           this.cList[deep].push(val);

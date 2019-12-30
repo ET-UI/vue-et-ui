@@ -99,18 +99,18 @@
         if (this.range === undefined) {
           this.cRange = ["1970/01/01 00:00:00", formatDate(endDate, "yyyy/MM/dd") + " 23:59:59"]
         } else {
-          this.cRange[0] = this.cRange[0] ? this.cRange[0].replace(/-/g, "/") : '';
-          this.cRange[1] = this.cRange[1] ? this.cRange[1].replace(/-/g, "/") : '';
-          if (!this.range[0] && this.range[1]) {
-            this.cRange = ["1970/01/01 00:00:00", this.range[1]];
-          } else if (this.range[0] && !this.range[1]) {
-            this.cRange = [this.range[0], formatDate(endDate, "yyyy/MM/dd") + " 23:59:59"];
+          this.cRange[0] = this.range[0] ? this.range[0].replace(/-/g, "/") : '';
+          this.cRange[1] = this.range[1] ? this.range[1].replace(/-/g, "/") : '';
+          if (!this.cRange[0] && this.cRange[1]) {
+            this.cRange = ["1970/01/01 00:00:00", this.cRange[1]];
+          } else if (this.cRange[0] && !this.range[1]) {
+            this.cRange = [this.cRange[0], formatDate(endDate, "yyyy/MM/dd") + " 23:59:59"];
           } else {
-            this.cRange = this.range;
+            this.cRange = this.cRange;
           }
         }
 
-        // 列表日期起始
+        // 数据起始日期
         let startListDate = new Date(this.cRange[0]);
         let endListDate = new Date(this.cRange[1]);
         let startYear = startListDate.getFullYear();
@@ -118,26 +118,41 @@
         while (startYear <= endYear) {
           let yearObj = {};
           yearObj[startYear] = [];
+
+          //起始月
           let startMonth = 1;
           if (startYear === startListDate.getFullYear()) {
             startMonth = startListDate.getMonth() + 1;
           }
-          while (startMonth <= 12) {
+          //终结日
+          let endMonth = 12;
+          if (startYear === endListDate.getFullYear()) {
+            endMonth = endListDate.getMonth() + 1;
+          }
+          while (startMonth <= endMonth) {
             let monthObj = {};
             monthObj[(startMonth + "").padStart("2", "0")] = [];
 
+            //起始日
             let startDay = 1;
-            if (startYear === startListDate.getFullYear()) {
+            if (startYear === startListDate.getFullYear()
+                && startMonth === startListDate.getMonth() + 1) {
               startDay = startListDate.getDate();
             }
-            let lastDay = 28;
-            let tempDate = new Date();
-            tempDate.setDate(1);
-            tempDate.setMonth(startMonth);
-            tempDate.setFullYear(startYear);
-            tempDate.setDate(tempDate.getDate() - 1);
-            lastDay = tempDate.getDate();
 
+            //终结日
+            let lastDay = 28;
+            if (startYear === endListDate.getFullYear()
+                && startMonth === endListDate.getMonth() + 1) {
+              lastDay = endListDate.getDate();
+            } else {
+              let tempDate = new Date();
+              tempDate.setDate(1);
+              tempDate.setMonth(startMonth);
+              tempDate.setFullYear(startYear);
+              tempDate.setDate(tempDate.getDate() - 1);
+              lastDay = tempDate.getDate();
+            }
             while (startDay <= lastDay) {
               let dayObj = (startDay + "").padStart("2", "0");
               monthObj[(startMonth + "").padStart("2", "0")].push(dayObj);
