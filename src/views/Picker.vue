@@ -12,6 +12,10 @@
       picker - 响应式
       <div>{{value3}}</div>
     </div>
+    <div @click="visible4 = true">
+      datePicker - 日期选择
+      <div>{{value4}}</div>
+    </div>
 
     <!--单列picker-->
     <Picker :show.sync="visible1"
@@ -27,17 +31,24 @@
     <Picker :show.sync="visible3"
             v-model="value3"
             :list="list3"
-            :sync="false"
+            :sync="true"
             title="响应式picker"></Picker>
+
+    <!--日期picker-->
+    <DatePicker v-model="value4"
+                :sync="true"
+                title="日期picker"
+                format="yyyy-MM-dd"
+                :show.sync="visible4"></DatePicker>
   </div>
 </template>
 
 <script>
-  import {Picker} from '@/components/index'
+  import {Picker, DatePicker} from '@/components/index'
 
   export default {
     components: {
-      Picker
+      Picker, DatePicker
     },
     name: 'picker',
     data() {
@@ -81,7 +92,11 @@
               {'子项5': ['孙项1', '孙项2', '孙项1.1', '孙项3']}
             ]
           },
-        ]
+        ],
+
+        // value4: "2019-12-01",
+        value4: "",
+        visible4: false,
       }
     },
     mounted() {

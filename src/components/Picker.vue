@@ -57,14 +57,10 @@
       value: {
         type: [String, Array]
       },
+      //是否显示
       show: {
         type: Boolean,
         default: false,
-      },
-      //类型，不填/normal普通，license车牌，date日期，·time时间
-      type: {
-        type: String,
-        default: "normal"
       },
       //是否同步
       sync: {
