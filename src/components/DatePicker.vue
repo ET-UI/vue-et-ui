@@ -58,18 +58,21 @@
         pickerValue: [],
         pickerList: [],
         cRange: [],
+        cFormat: "",
       }
     },
     mounted() {
       if (this.format === undefined) {
         if (this.type === "date") {
-          this.format = "yyyy-MM-dd";
+          this.cFormat = "yyyy-MM-dd";
         } else if (this.type === "time") {
-          this.format = "yyyy-MM-dd HH:mm:ss";
+          this.cFormat = "yyyy-MM-dd HH:mm";
         }
+      } else {
+        this.cFormat = this.format;
       }
       this.initVal();
-      this.initData();
+      this.init();
     },
     beforeDestroy() {
     },
@@ -80,13 +83,23 @@
         if (this.value) {
           cur = new Date(this.value.replace(/-/g, "/"));
         }
-        this.pickerValue = [
-          cur.getFullYear() + "",
-          ((cur.getMonth() + 1) + "").padStart("2", "0"),
-          (cur.getDate() + "").padStart("2", "0")]
+        if (this.type === 'date') {
+          this.pickerValue = [
+            cur.getFullYear() + "",
+            ((cur.getMonth() + 1) + "").padStart("2", "0"),
+            (cur.getDate() + "").padStart("2", "0")]
+        } else if (this.type === 'time') {
+          this.pickerValue = [
+            cur.getFullYear() + "",
+            ((cur.getMonth() + 1) + "").padStart("2", "0"),
+            (cur.getDate() + "").padStart("2", "0"),
+            (cur.getHours() + "").padStart("2", "0"),
+            (cur.getMinutes() + "").padStart("2", "0"),
+          ]
+        }
       },
       //初始化数据
-      initData() {
+      init() {
         let cur = new Date();
         // let startDate = new Date("1970/01/01 00:00:00");
         let endDate = new Date();
@@ -113,6 +126,20 @@
         // 数据起始日期
         let startListDate = new Date(this.cRange[0]);
         let endListDate = new Date(this.cRange[1]);
+        this.pickerList = this.initData([
+          [
+            startListDate.getFullYear(),
+            startListDate.getMonth() + 1,
+            startListDate.getDate(),
+          ],
+          [
+            endListDate.getFullYear(),
+            endListDate.getMonth() + 1,
+            endListDate.getDate(),
+          ],
+        ])
+
+        /*
         let startYear = startListDate.getFullYear();
         let endYear = endListDate.getFullYear();
         while (startYear <= endYear) {
@@ -154,7 +181,13 @@
               lastDay = tempDate.getDate();
             }
             while (startDay <= lastDay) {
-              let dayObj = (startDay + "").padStart("2", "0");
+              let dayObj = {};
+              if (this.type === "time") {
+                dayObj[(startDay + "").padStart("2", "0")] =
+                    this.initTimeData(startMonth, startMonth, startDay);
+              } else {
+                dayObj = (startDay + "").padStart("2", "0");
+              }
               monthObj[(startMonth + "").padStart("2", "0")].push(dayObj);
               startDay++;
             }
@@ -164,10 +197,69 @@
           }
           this.pickerList.push(yearObj);
           startYear++;
-        }
+        }*/
       },
-    }
-    ,
+      // deep
+      initData(range = [], cur = [], deep = 0) {
+        let r = [];
+        let start;
+        let end;
+        console.log(cur, deep);
+        switch (deep) {
+          case 0: {//年
+            start = range[0][deep];
+            end = range[1][deep];
+            break;
+          }
+          case 1: {//月
+            start = 1;
+            end = 12;
+            if (cur[0] == range[0][0]) {
+              start = range[0][deep];
+            }
+            if (cur[0] == range[1][0]) {
+              end = range[1][deep];
+            }
+            break;
+          }
+          case 2: {//日
+            start = 1;
+            if (cur[0] == range[0][0]
+                && cur[1] == range[0][1]) {
+              start = range[0][deep];
+            }
+            end = 28;
+            if (cur[0] == range[1][0]
+                && cur[1] == range[1][1]) {
+              end = range[1][deep];
+            } else {
+              let tempDate = new Date();
+              tempDate.setDate(1);
+              tempDate.setMonth(cur[1]);
+              tempDate.setFullYear(cur[0]);
+              tempDate.setDate(tempDate.getDate() - 1);
+              end = tempDate.getDate();
+            }
+            break;
+          }
+        }
+
+        let key = start;
+        // console.log(key, end);
+        while (key <= end) {
+          let obj = {};
+          cur[deep] = (key + "").padStart("2", "0");
+          if (deep < range[0].length - 1) {
+            obj[(key + "").padStart("2", "0")] = this.initData(range, cur, deep + 1);
+          } else {
+            obj = (key + "").padStart("2", "0");
+          }
+          r.push(obj);
+          key++;
+        }
+        return r;
+      }
+    },
     watch: {
       show() {
         this.cShow = this.show;
@@ -176,10 +268,14 @@
         this.$emit("update:show", this.cShow);
       },
       pickerValue(nVal) {
+        let valDate = "";
         if (this.type === "date") {
-          let valDate = new Date(nVal[0] + "/" + nVal[1] + "/" + nVal[2])
-          this.$emit("input", formatDate(valDate, this.format));
+          valDate = new Date(`${nVal[0]}/${nVal[1]}/${nVal[2]}`);
+        } else {
+          valDate = new Date(`${nVal[0]}/${nVal[1]}/${nVal[2]} ${nVal[3]}:${nVal[4]}`);
         }
+
+        this.$emit("input", formatDate(valDate, this.cFormat));
       }
     }
   }

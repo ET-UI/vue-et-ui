@@ -17,6 +17,11 @@
       <div>{{value4}}</div>
     </div>
 
+    <div @click="visible5 = true">
+      datePicker - 时间选择
+      <div>{{value5}}</div>
+    </div>
+
     <!--单列picker-->
     <Picker :show.sync="visible1"
             v-model="value1"
@@ -38,9 +43,14 @@
     <DatePicker v-model="value4"
                 :sync="true"
                 title="日期picker"
-                format="yyyy-MM-dd"
-                :range="['2018-11-15','2020-01-15']"
+                :range="['2018-11-15','2020-03-15']"
                 :show.sync="visible4"></DatePicker>
+    <!--日期picker-时间-->
+    <!--<DatePicker v-model="value5"
+                :sync="true"
+                type="time"
+                title="日期picker-时间"
+                :show.sync="visible5"></DatePicker>-->
   </div>
 </template>
 
@@ -98,6 +108,9 @@
         // value4: "2019-12-01",
         value4: "",
         visible4: false,
+
+        value5: "",
+        visible5: false,
       }
     },
     mounted() {
