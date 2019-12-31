@@ -74,16 +74,20 @@
       //标题
       title: {
         type: String,
+      },
+      //比例
+      scale: {
+        type: Array,
       }
     },
     data() {
       return {
         oldValue: null,
-        cList: [],
-        listType: 0,//数据类型，0单列，1多列，2响应式
-        swiperArr: [],
-        swiperIndexArr: [],
-        valueArr: [],
+        cList: [],//当前数据
+        listType: 0,//数据类型，0单列，1多列，2对象
+        swiperArr: [],//swiper数组
+        swiperIndexArr: [],//swiper下标数组
+        valueArr: [],//值数组
       }
     },
     mounted() {
@@ -120,7 +124,7 @@
         } else if (this.listType === 1) {
           this.valueArr = JSON.parse(JSON.stringify(this.value));
           this.cList.forEach((item, index) => {
-            this.swiperIndexArr.push(0);
+            this.swiperIndexArr.splice(index, 1, 0);
             item.every((item2, index2) => {
               if (item2 == this.value[index]) {
                 this.swiperIndexArr[index] = index2;
@@ -156,7 +160,7 @@
           this.swiperArr = [];
         }
         if (this.listType == 0) {
-          this.swiperArr.push(new Swiper(this.$refs['swiper-0'], {
+          this.swiperArr.splice(0, 1, Swiper(this.$refs['swiper-0'], {
             initialSlide: that.swiperIndexArr[0],
             direction: 'vertical',
             centeredSlides: true,
@@ -164,33 +168,16 @@
             on: {
               slideChange: function () {
                 that.swiperIndexArr[0] = this.activeIndex;
-                that.valueArr.splice(0, 1, that.cList[that.swiperIndexArr[0]])
+                that.valueArr.splice(0, 1, that.cList[that.swiperIndexArr[0]]);
+                that.$emit("slideChange", that.valueArr);
                 if (that.sync) {
                   that.syncValue();
                 }
               }
             }
           }));
-        } else if (this.listType == 1) {
-          this.cList.forEach((item, index) => {
-            this.swiperArr.push(new Swiper(this.$refs[`swiper-${index}`], {
-              initialSlide: that.swiperIndexArr[index],
-              direction: 'vertical',
-              centeredSlides: true,
-              slidesPerView: 5,
-              on: {
-                slideChange: function () {
-                  that.swiperIndexArr[index] = this.activeIndex;
-                  that.valueArr.splice(index, 1, that.cList[index][that.swiperIndexArr[index]])
-                  if (that.sync) {
-                    that.syncValue();
-                  }
-                }
-              }
-            }));
-          })
-        } else {
-          //当长度调整时
+        } else if (this.listType == 1 || this.listType == 2) {
+          //长度调整，重置siwper
           if (this.swiperArr.length != this.cList.length) {
             this.swiperArr.forEach((item, index) => {
               item && item.destroy();
@@ -198,38 +185,62 @@
             this.swiperArr = [];
             this.valueArr.splice(this.cList.length);
           }
+
           this.cList.forEach((item, index) => {
-            if (item.indexOf(this.valueArr[index]) != this.swiperIndexArr[index]) {
-              this.valueArr.splice(index, 1, item[0]);
-              this.swiperIndexArr.splice(index, 1, 0);
-              this.swiperArr[index] && this.swiperArr[index].slideTo(0);
+            // 选项是否不同
+            let isItemDifferent = (item.indexOf(this.valueArr[index]) != this.swiperIndexArr[index]);
+            // console.log('跳到顶部1');
+            let valIndex = 0;
+            if (item.indexOf(this.valueArr[index]) > 0) {
+              valIndex = item.indexOf(this.valueArr[index]);
             }
+            if (isItemDifferent) {
+              this.valueArr.splice(index, 1, item[valIndex]);
+              this.swiperIndexArr.splice(index, 1, valIndex);
+            }
+
             if (this.swiperArr[index]) {
               this.swiperArr[index].update();
+              if (isItemDifferent) {
+                this.swiperArr[index] && this.swiperArr[index].slideTo(valIndex);
+              }
             } else {
-              this.swiperArr.splice(index, 1, new Swiper(this.$refs[`swiper-${index}`], {
-                initialSlide: that.swiperIndexArr[index],
-                direction: 'vertical',
-                centeredSlides: true,
-                slidesPerView: 5,
-                on: {
-                  slideChange: function () {
-                    that.swiperIndexArr.splice(index, 1, this.activeIndex);
-                    that.valueArr.splice(index, 1, that.cList[index][that.swiperIndexArr[index]])
-                    if (that.sync) {
-                      that.syncValue();
-                    }
+              this.swiperArr.splice(index, 1,
+                  new Swiper(this.$refs[`swiper-${index}`], {
+                    initialSlide: that.swiperIndexArr[index],
+                    direction: 'vertical',
+                    centeredSlides: true,
+                    slidesPerView: 5,
+                    on: {
+                      slideChange: function () {
+                        that.swiperIndexArr[index] = this.activeIndex;
+                        that.valueArr.splice(index, 1, that.cList[index][that.swiperIndexArr[index]])
+                        if (that.sync) {
+                          that.syncValue();
+                        }
 
-                    that.cList = []
-                    that.filterList(that.list, 0);
-                    setTimeout(() => {
-                      that.initSwiper(true);
-                    });
-                  }
-                }
-              }));
+                        if (that.listType == 1) {
+                          that.$emit("slideChange", that.valueArr);
+                          that.$nextTick(() => {
+                            that.cList = [];
+                            that.cList = that.list;
+                            that.$nextTick(() => {
+                              that.initSwiper(true);
+                            });
+                          });
+                        } else if (that.listType == 2) {
+                          that.cList = []
+                          that.filterList(that.list, 0);
+                          that.$nextTick(() => {
+                            that.initSwiper(true);
+                          });
+                        }
+                      }
+                    }
+                  })
+              );
             }
-          })
+          });
         }
       },
       close() {
@@ -238,6 +249,7 @@
         this.$emit('close');
       },
       cancel() {
+        this.$emit("cancel");
         this.$emit("input", this.oldValue);
         this.close();
       },
@@ -255,7 +267,7 @@
       bindClick(col, row) {
         this.swiperArr[col].slideTo(row);
       },
-      //递归过滤数据
+      //对象数据-递归过滤数据
       filterList(data, deep = 0) {
         this.cList.splice(deep, 1, []);
         data.forEach((item, index) => {
