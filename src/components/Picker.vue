@@ -179,7 +179,7 @@
         } else if (this.listType == 1 || this.listType == 2) {
           //长度调整，重置siwper
           if (this.swiperArr.length != this.cList.length) {
-            this.swiperArr.forEach((item, index) => {
+            this.swiperArr.forEach((item) => {
               item && item.destroy();
             });
             this.swiperArr = [];
@@ -270,7 +270,7 @@
       //对象数据-递归过滤数据
       filterList(data, deep = 0) {
         this.cList.splice(deep, 1, []);
-        data.forEach((item, index) => {
+        data.forEach((item) => {
           let val = "";
           if (typeof item === "string") {
             val = item;
@@ -389,6 +389,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        transition: font-size 0.3s;
         &-active {
           font-size: 32px;
           color: #222;
