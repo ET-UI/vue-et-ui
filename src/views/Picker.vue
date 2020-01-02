@@ -94,7 +94,7 @@
     data() {
       return {
         isSync: false,
-        value1: "选项4",
+        value1: "选项2",
         visible1: false,
         list1: [
           '选项1',
@@ -130,7 +130,7 @@
           ]
         ],
 
-        value3: ["选项2", "子项4"],
+        value3: ["选项2", "子项5", "孙项0"],
         visible3: false,
         list3: [
           {

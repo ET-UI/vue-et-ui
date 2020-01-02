@@ -123,42 +123,63 @@
           }
         }
         if (this.listType === 0) {
+          let has = false;
           this.swiperIndexArr[0] = 0;
           this.cList.every((item, index) => {
             if (item == this.value) {
               this.swiperIndexArr[0] = index;
+              has = true;
               return false;
             }
             return true;
           });
-          this.valueArr = [this.value];
+          //如果值不在选项中，默认选择第一项
+          if (!has) {
+            this.swiperIndexArr[0] = 0;
+            this.valueArr = [this.cList[0]];
+          } else {
+            this.valueArr = [this.value];
+          }
         } else if (this.listType === 1) {
           this.valueArr = JSON.parse(JSON.stringify(this.value));
           this.cList.forEach((item, index) => {
+            let has = false;
             this.swiperIndexArr.splice(index, 1, 0);
             item.every((item2, index2) => {
               if (item2 == this.value[index]) {
                 this.swiperIndexArr[index] = index2;
+                has = true;
                 return false;
               }
               return true;
             });
+            if (!has) {
+              this.swiperIndexArr[index] = 0;
+              this.valueArr[index] = this.cList[index][0];
+            }
           });
         } else if (this.listType === 2) {
           this.valueArr = JSON.parse(JSON.stringify(this.value));
           this.cList = [];
           this.filterList(this.list);
           this.cList.forEach((item, index) => {
+            let has = false;
             this.swiperIndexArr.splice(index, 1, 0);
             item.every((item2, index2) => {
               if (item2 == this.value[index]) {
                 this.swiperIndexArr[index] = index2;
+                has = true;
                 return false;
               }
               return true;
             });
+            if (!has) {
+              this.swiperIndexArr[index] = 0;
+              this.valueArr[index] = this.cList[index][0];
+            }
           });
         }
+        this.syncValue();
       },
       display() {
         setTimeout(() => {

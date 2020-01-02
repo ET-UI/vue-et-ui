@@ -32,7 +32,9 @@
       }
     },
     data() {
-      return {}
+      return {
+        isDisplay: false,
+      }
     },
     methods: {
       display() {
