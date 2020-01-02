@@ -160,7 +160,7 @@
           this.swiperArr = [];
         }
         if (this.listType == 0) {
-          this.swiperArr.splice(0, 1, Swiper(this.$refs['swiper-0'], {
+          this.swiperArr.splice(0, 1, new Swiper(this.$refs['swiper-0'], {
             initialSlide: that.swiperIndexArr[0],
             direction: 'vertical',
             centeredSlides: true,

@@ -1,5 +1,12 @@
 <template>
   <div id="picker">
+    <h3>选项：</h3>
+    <div @click="isSync = !isSync">
+      是否同步
+      <div>{{isSync}}</div>
+    </div>
+    <br />
+    <h3>demo</h3>
     <div @click="visible1 = true">
       picker - 单列
       <div>{{value1}}</div>
@@ -34,18 +41,21 @@
     <Picker :show.sync="visible1"
             v-model="value1"
             :list="list1"
+            :sync="isSync"
             title="单列picker"></Picker>
 
     <!--多列picker-->
     <Picker :show.sync="visible2"
             v-model="value2"
             :list="list2"
+            :sync="isSync"
             title="多列picker"></Picker>
 
     <!--多列响应式picker-->
     <Picker :show.sync="visible22"
             v-model="value22"
             :list="list22"
+            :sync="isSync"
             @cancel="cancel22"
             @slideChange="slideChange22"
             title="多列响应式"></Picker>
@@ -54,18 +64,18 @@
     <Picker :show.sync="visible3"
             v-model="value3"
             :list="list3"
-            :sync="true"
+            :sync="isSync"
             title="对象数据响应式"></Picker>
 
     <!--日期picker-->
     <DatePicker v-model="value4"
-                :sync="false"
+                :sync="isSync"
                 title="日期picker"
-                :range="['2018-11-15','2020-03-15']"
+                :range="['2018-06-20','2020-02-15']"
                 :show.sync="visible4"></DatePicker>
     <!--日期picker-时间-->
     <DatePicker v-model="value5"
-                :sync="true"
+                :sync="isSync"
                 type="time"
                 title="日期picker-时间"
                 :range="['2018-11-15 12:30','2020-03-15 12:30']"
@@ -83,6 +93,7 @@
     name: 'picker',
     data() {
       return {
+        isSync: false,
         value1: "选项4",
         visible1: false,
         list1: [
@@ -137,7 +148,7 @@
           },
         ],
 
-        value4: "2018-11-20",
+        value4: "2019-12-04",
         // value4: "",
         visible4: false,
 

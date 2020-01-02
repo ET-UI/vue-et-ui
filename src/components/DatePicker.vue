@@ -104,6 +104,7 @@
       init() {
         let cur = new Date();
         let startDate = new Date();
+        //默认前后5年
         startDate.setFullYear(cur.getFullYear() - 5);
         startDate = new Date(startDate);
         let endDate = new Date();
@@ -249,6 +250,7 @@
         // console.log(result);
         return result;
       },
+      //取消
       cancel() {
         if (this.type === 'date') {
           this.pickerList = this.initData(this.pickerValue[0], this.pickerValue[1], this.pickerValue[2]);
@@ -262,6 +264,10 @@
           );
         }
       },
+      /**
+       * picker的值被修改时处理数据
+       * @param val
+       */
       slideChange(val) {
         // console.log(val);
         if (this.type === 'date') {
