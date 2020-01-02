@@ -5,6 +5,7 @@
             :list="pickerList"
             :sync="sync"
             @cancel="cancel"
+            :insert-text="['-','-','',':']"
             @slideChange="slideChange"
             :title="title"></Picker>
   </div>

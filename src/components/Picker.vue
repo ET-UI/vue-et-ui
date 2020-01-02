@@ -21,6 +21,7 @@
         <div class="et-picker__bar"></div>
         <template v-for="(col,colIndex) in (listType>0?cList.length:1)">
           <div :key="colIndex"
+               :style="(scale&&scale[colIndex])?`flex:${scale[colIndex]}`:''"
                :ref="`swiper-${colIndex}`"
                class="swiper-container">
             <div class="swiper-wrapper">
@@ -39,6 +40,11 @@
                 </div>
               </template>
             </div>
+          </div>
+          <div :key="colIndex+'text'"
+               class="et-picker__insert-text"
+               v-if="insertText&&insertText[colIndex]">
+            {{insertText[colIndex]}}
           </div>
         </template>
       </div>
@@ -77,6 +83,10 @@
       },
       //比例
       scale: {
+        type: Array,
+      },
+      //插入的文案
+      insertText: {
         type: Array,
       }
     },
@@ -366,7 +376,16 @@
     &__body {
       flex: 1;
       display: flex;
+      align-items: center;
       position: relative;
+      padding: 0 10px;
+    }
+    &__insert-text {
+      position: relative;
+      text-align: center;
+      z-index: 1;
+      font-size: 32px;
+      /*flex: 0.5;*/
     }
     &__bar {
       position: absolute;
