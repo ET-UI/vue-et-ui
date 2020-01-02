@@ -2,7 +2,7 @@
   <div class="et-picker" v-if="show">
     <div class="et-picker__mask" @click="sync?close():''">
     </div>
-    <div class="et-picker__main">
+    <div class="et-picker__main" :class="{'et-picker__main--display':isDisplay}">
       <div class="et-picker__title">
         <div class="et-picker__title__left"
              v-if="!sync"
@@ -92,6 +92,7 @@
     },
     data() {
       return {
+        isDisplay: false,
         oldValue: null,
         cList: [],//当前数据
         listType: 0,//数据类型，0单列，1多列，2对象
@@ -161,6 +162,7 @@
       },
       display() {
         setTimeout(() => {
+          this.isDisplay = true;
           this.initSwiper();
         });
       },
@@ -254,6 +256,7 @@
         }
       },
       close() {
+        this.isDisplay = false;
         this.swiperArr = [];
         this.$emit('update:show', false);
         this.$emit('close');
@@ -343,12 +346,16 @@
     }
     &__main {
       position: absolute;
-      bottom: 0;
+      bottom: -100%;
       height: 660px;
       width: 100%;
       background: #fff;
       display: flex;
       flex-direction: column;
+      transition: bottom 0.5s;
+      &--display {
+        bottom: 0;
+      }
     }
     &__title {
       height: 118px;
