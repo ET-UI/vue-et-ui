@@ -22,18 +22,18 @@
       dialog
     </div>
 
-    <Dialog :show.sync="visible" :show-close="true" type="white">
+    <ETDialog :show.sync="visible" :show-close="true" type="white">
       test
-    </Dialog>
+    </ETDialog>
   </div>
 </template>
 
 <script>
-  import {Dialog} from '@/components/index'
+  import {ETDialog} from '@/components/index'
 
   export default {
     components: {
-      Dialog,
+      ETDialog,
     },
     data() {
       return {

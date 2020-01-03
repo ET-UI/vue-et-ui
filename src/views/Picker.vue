@@ -38,57 +38,57 @@
     </div>
 
     <!--单列picker-->
-    <Picker :show.sync="visible1"
+    <ETPicker :show.sync="visible1"
             v-model="value1"
             :list="list1"
             :sync="isSync"
-            title="单列picker"></Picker>
+            title="单列picker"></ETPicker>
 
     <!--多列picker-->
-    <Picker :show.sync="visible2"
+    <ETPicker :show.sync="visible2"
             v-model="value2"
             :list="list2"
             :sync="isSync"
-            title="多列picker"></Picker>
+            title="多列picker"></ETPicker>
 
     <!--多列响应式picker-->
-    <Picker :show.sync="visible22"
+    <ETPicker :show.sync="visible22"
             v-model="value22"
             :list="list22"
             :sync="isSync"
             @cancel="cancel22"
             @slideChange="slideChange22"
-            title="多列响应式"></Picker>
+            title="多列响应式"></ETPicker>
 
     <!--对象数据响应式picker-->
-    <Picker :show.sync="visible3"
+    <ETPicker :show.sync="visible3"
             v-model="value3"
             :list="list3"
             :sync="isSync"
-            title="对象数据响应式"></Picker>
+            title="对象数据响应式"></ETPicker>
 
     <!--日期picker-->
-    <DatePicker v-model="value4"
+    <ETDatePicker v-model="value4"
                 :sync="isSync"
                 title="日期picker"
                 :range="['2018-06-20','2020-02-15']"
-                :show.sync="visible4"></DatePicker>
+                :show.sync="visible4"></ETDatePicker>
     <!--日期picker-时间-->
-    <DatePicker v-model="value5"
+    <ETDatePicker v-model="value5"
                 :sync="isSync"
                 type="time"
                 title="日期picker-时间"
                 :range="['2018-11-15 12:30','2020-03-15 12:30']"
-                :show.sync="visible5"></DatePicker>
+                :show.sync="visible5"></ETDatePicker>
   </div>
 </template>
 
 <script>
-  import {Picker, DatePicker} from '@/components/index'
+  import {ETPicker, ETDatePicker} from '@/components/index'
 
   export default {
     components: {
-      Picker, DatePicker
+      ETPicker, ETDatePicker
     },
     name: 'picker',
     data() {

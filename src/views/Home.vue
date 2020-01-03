@@ -9,6 +9,9 @@
     <div @click="navTo('/picker')">
       picker
     </div>
+    <div @click="navTo('/input')">
+      input
+    </div>
   </div>
 </template>
 

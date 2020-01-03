@@ -1,16 +1,16 @@
 <template>
   <div id="btn">
-    <Btn @click="bindClick">normal</Btn>
-    <Btn @click="bindClick" type="disabled">disabled</Btn>
+    <ETBtn @click="bindClick">normal</ETBtn>
+    <ETBtn @click="bindClick" type="disabled">disabled</ETBtn>
   </div>
 </template>
 
 <script>
-  import {Btn} from '@/components/index'
+  import {ETBtn} from '@/components/index'
 
   export default {
     components: {
-      Btn
+      ETBtn
     },
     name: 'btn',
     mounted() {

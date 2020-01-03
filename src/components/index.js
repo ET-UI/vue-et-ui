@@ -1,4 +1,4 @@
-//:active伪类不生效的问题
+//:active伪类在移动端不生效的问题
 document.body.addEventListener('touchstart', function () {
 });
 
@@ -9,10 +9,11 @@ import '../style/index.scss';
 import Toast from './Toast/index'
 import Alert from './Alert/index'
 import Confirm from './Confirm/index'
-import Dialog from './Dialog'
-import Btn from './Btn'
-import Picker from './Picker'
-import DatePicker from './DatePicker'
+import ETDialog from './Dialog'
+import ETBtn from './Btn'
+import ETPicker from './Picker'
+import ETDatePicker from './DatePicker'
+import ETInput from './Input'
 
 const components = [
   Toast, Alert, Confirm
@@ -29,5 +30,5 @@ let VueEtUi = {
 export default VueEtUi;
 
 export {
-  Toast, Alert, Confirm, Dialog, Btn, Picker, DatePicker
+  Toast, Alert, Confirm, ETDialog, ETBtn, ETPicker, ETDatePicker, ETInput
 };
