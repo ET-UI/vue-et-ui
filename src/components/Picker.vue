@@ -1,5 +1,5 @@
 <template>
-  <div class="et-picker" v-if="show">
+  <div class="et-picker" v-if="show" :style="zIndex?`z-index:${zIndex}`:''">
     <div class="et-picker__mask" @click="sync?close():''">
     </div>
     <div class="et-picker__main" :class="{'et-picker__main--display':isDisplay}">
@@ -88,6 +88,10 @@
       //插入的文案
       insertText: {
         type: Array,
+      },
+      //层级
+      zIndex:{
+        type: Number,
       }
     },
     data() {

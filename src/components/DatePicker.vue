@@ -1,6 +1,7 @@
 <template>
   <div class="et-date-picker">
     <Picker :show.sync="cShow"
+            :z-index="zIndex"
             v-model="pickerValue"
             :list="pickerList"
             :sync="sync"
@@ -53,6 +54,10 @@
       //格式化
       format: {
         type: String,
+      },
+      //层级
+      zIndex:{
+        type: Number,
       }
     },
     data() {
