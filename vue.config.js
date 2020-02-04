@@ -4,7 +4,7 @@ const PROJECT_NAME = 'demo';
 
 module.exports = {
   // publicPath: '/demo/',
-  outputDir: '../dist',
+  outputDir: './dist',
   pages: {
     index: {
       // page 的入口
