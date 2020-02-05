@@ -39,6 +39,7 @@
 
     <!--单列picker-->
     <ETPicker :show.sync="visible1"
+              :z-index="10001"
             v-model="value1"
             :list="list1"
             :sync="isSync"
@@ -69,6 +70,7 @@
 
     <!--日期picker-->
     <ETDatePicker v-model="value4"
+                  :z-index="10001"
                 :sync="isSync"
                 title="日期picker"
                 :range="['2018-06-20','2020-02-15']"
