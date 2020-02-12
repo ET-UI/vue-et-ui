@@ -2,6 +2,7 @@
   <div id="btn">
     <ETBtn @click="bindClick">normal</ETBtn>
     <ETBtn @click="bindClick" type="disabled">disabled</ETBtn>
+    <ETBtn @click="bindClick" type="hollow">hollow</ETBtn>
   </div>
 </template>
 
