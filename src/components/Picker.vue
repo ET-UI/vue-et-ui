@@ -186,7 +186,9 @@
         this.syncValue();
       },
       display() {
-        setTimeout(() => {
+        this.$nextTick(() => {
+          //nextTick后，vue发现value和valueArr值一样，就让valueArr=value，因此这里需要再次深拷贝
+          this.valueArr = JSON.parse(JSON.stringify(this.valueArr));
           this.isDisplay = true;
           this.initSwiper();
         });

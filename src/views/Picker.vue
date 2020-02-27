@@ -159,7 +159,10 @@
       }
     },
     mounted() {
-
+      setTimeout(()=>{
+        this.value4 = '2020-01-01';
+        this.value5 = '2020-01-01 13:30';
+      })
     },
     methods: {
       cancel22() {

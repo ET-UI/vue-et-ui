@@ -56,7 +56,7 @@
         type: String,
       },
       //层级
-      zIndex:{
+      zIndex: {
         type: Number,
       }
     },
@@ -116,7 +116,7 @@
         let endDate = new Date();
         endDate.setFullYear(cur.getFullYear() + 5);
         endDate = new Date(endDate);
-        //处理2月29日的10年后没有2月29日，变为2月28日
+        //处理2月29日的一段时间后没有2月29日，变为2月28日
         if (cur.getMonth() != endDate.getMonth()) {
           endDate.setDate(endDate.getDate() - 1);
         }
@@ -290,18 +290,22 @@
       }
     },
     watch: {
-      show() {
-        this.cShow = this.show;
+      show(n) {
+        this.cShow = n;
+        if(n){
+          this.initVal();
+          this.init();
+        }
       },
       cShow() {
         this.$emit("update:show", this.cShow);
       },
-      pickerValue(nVal) {
+      pickerValue(n, o) {
         let valDate = "";
         if (this.type === "date") {
-          valDate = new Date(`${nVal[0]}/${nVal[1]}/${nVal[2]}`);
+          valDate = new Date(`${n[0]}/${n[1]}/${n[2]}`);
         } else {
-          valDate = new Date(`${nVal[0]}/${nVal[1]}/${nVal[2]} ${nVal[3]}:${nVal[4]}`);
+          valDate = new Date(`${n[0]}/${n[1]}/${n[2]} ${n[3]}:${n[4]}`);
         }
 
         this.$emit("input", formatDate(valDate, this.cFormat));
