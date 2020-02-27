@@ -1,12 +1,12 @@
 <template>
-  <div class="etc-alert" :style="zIndex?('z-index:'+zIndex):''">
-    <div class="etc-alert__inner" :class="{visible:visible}">
-      <div class="etc-alert__title" v-if="title">
+  <div class="et-alert" :style="zIndex?('z-index:'+zIndex):''">
+    <div class="et-alert__inner" :class="{visible:visible}">
+      <div class="et-alert__title" v-if="title">
         {{title}}
       </div>
-      <div class="etc-alert__text" v-html="text" v-if="text">
+      <div class="et-alert__text" v-html="text" v-if="text">
       </div>
-      <div class="etc-alert__button" @click.stop="close">
+      <div class="et-alert__button" @click.stop="close">
         {{okText}}
       </div>
     </div>

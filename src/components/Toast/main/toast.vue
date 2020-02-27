@@ -1,10 +1,10 @@
 <template>
-  <div class="etc-toast" :class="[toastType,{}]" :style="zIndex?('z-index:'+zIndex):''">
-    <div class="etc-toast__inner" :class="{visible:visible}">
-      <div class="etc-toast__icon" v-if="type!='normal'">
+  <div class="et-toast" :class="[toastType,{}]" :style="zIndex?('z-index:'+zIndex):''">
+    <div class="et-toast__inner" :class="{visible:visible}">
+      <div class="et-toast__icon" v-if="type!='normal'">
 
       </div>
-      <div class="etc-toast__text" v-html="text" v-if="text">
+      <div class="et-toast__text" v-html="text" v-if="text">
       </div>
     </div>
   </div>
@@ -71,9 +71,9 @@
       toastType() {
         let arr = ["normal", "success", "fail", "loading"];
         if (arr.includes(this.type)) {
-          return "etc-toast--" + this.type;
+          return "et-toast--" + this.type;
         }
-        return "etc-toast--normal";
+        return "et-toast--normal";
       },
     },
   };

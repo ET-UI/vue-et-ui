@@ -1,16 +1,16 @@
 <template>
-  <div class="etc-confirm" :style="zIndex?('z-index:'+zIndex):''">
-    <div class="etc-confirm__inner" :class="{visible:visible}">
-      <div class="etc-confirm__title" v-if="title">
+  <div class="et-confirm" :style="zIndex?('z-index:'+zIndex):''">
+    <div class="et-confirm__inner" :class="{visible:visible}">
+      <div class="et-confirm__title" v-if="title">
         {{title}}
       </div>
-      <div class="etc-confirm__text" v-html="text" v-if="text">
+      <div class="et-confirm__text" v-html="text" v-if="text">
       </div>
-      <div class="etc-confirm__buttons">
-        <div class="etc-confirm__button" @click.stop="close(false)">
+      <div class="et-confirm__buttons">
+        <div class="et-confirm__button" @click.stop="close(false)">
           {{cancelText}}
         </div>
-        <div class="etc-confirm__button etc-confirm__button--ok" @click.stop="close(true)">
+        <div class="et-confirm__button et-confirm__button--ok" @click.stop="close(true)">
           {{okText}}
         </div>
       </div>

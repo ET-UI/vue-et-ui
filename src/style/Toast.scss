@@ -1,6 +1,6 @@
 @import "./common";
 @import "./animation";
-.etc-toast {
+.et-toast {
   position: fixed;
   top: 0;
   left: 0;
@@ -33,12 +33,12 @@
     text-align: center;
   }
   &--normal {
-    .etc-toast__text {
+    .et-toast__text {
       margin-top: 0;
     }
   }
   &--loading {
-    .etc-toast__icon {
+    .et-toast__icon {
       width: 44px;
       height: 44px;
       background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAsCAMAAAApWqozAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAERUExURQAAAP////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////cnZ6cAAABadFJOUwCGBRSEh+kBSA6fqfey+Qbx3kwETarXRwu6NCNgT18ku+xSU9DR+sTCoN+n8jMTlDVYTu5FqPawDNjt71k7XpimPMVbr3NXWuUH5m45w23njXD8CcFJAgqF1unm81sAAAGoSURBVDjLlZXndsIwDIWdBJIACXsVKBvKLi2U0b333vX7P0gjG0ogYLv6I53kOznSlX2D0HwkE9LwZ9d//Yh4oem+AZ7EAYctlvEsLphoeg3b44TFXgbt6O0dq1vXFFPrma4SYE62OUFP12WuDG6KNqKIH1uUjXkE2DSdzaUJsIhq5hZBUZGwPuZ3759fvogSZG8NZr/9V4zfP60iQT7M1uEckL5V7ECxwe70mIhlnUkDinU2vA3M4I12oUbYcOQJqASSINV5inmB+kYmpAwPPgRqiOKQujw4BdQYFSApPFgBag/5Id3w4ABZBoUDQrCfttHhwR2gCnTAlNCAcUHpskCZdCleoaVISBdatwqU/o+DZCTFjugDuUtWQfrAYRYbJsgHXKsKVCHGtfKEgKhoswvbXA03CVASsgIiLs5PTabFMJmJZbZyC/blW9K3x0ff7TuMMeTQJBzCjh7/LLcWtVmuHK1NHh9pK8zcm20rsqy0s151+swxzdXcb8IewTPnKLn8cjafWypoqeJEy6XVP82YYSeNmM404pEumfFetdobm259tPDyF6mcqk9CtbeDAAAAAElFTkSuQmCC");
@@ -48,7 +48,7 @@
     }
   }
   &--success {
-    .etc-toast__icon {
+    .et-toast__icon {
       width: 80px;
       height: 80px;
       border: 4px solid #ddd;
@@ -74,7 +74,7 @@
     }
   }
   &--fail {
-    .etc-toast__icon {
+    .et-toast__icon {
       width: 80px;
       height: 80px;
       border: 4px solid #ddd;
