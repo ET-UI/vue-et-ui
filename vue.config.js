@@ -24,9 +24,6 @@ module.exports = {
   lintOnSave: false,
   devServer: {
     allowedHosts: [
-      `${PROJECT_NAME}-dev.etcchebao.com`,
-      `${PROJECT_NAME}-test.etcchebao.com`,
-      `${PROJECT_NAME}.etcchebao.com`,
     ],
   },
   css: {
