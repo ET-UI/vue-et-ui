@@ -1,25 +1,25 @@
 <template>
   <div id="dialog">
     <div @click="showToast('normal')">
-      toast
+      吐司 - toast
     </div>
     <div @click="showToast('loading')">
-      toast - loading
+      吐司 - 加载中 - toast - loading
     </div>
     <div @click="showToast('success')">
-      toast - success
+      吐司 - 成功 - toast - success
     </div>
     <div @click="showToast('fail')">
-      toast - fail
+      吐司 - 失败 - toast - fail
     </div>
     <div @click="showAlert">
-      alert
+      提示框 - alert
     </div>
     <div @click="showConfirm">
-      confirm
+      确认框 - confirm
     </div>
     <div @click="showDialog">
-      dialog
+      自定义弹框 - dialog
     </div>
 
     <ETDialog :show.sync="visible" :show-close="true" type="white">

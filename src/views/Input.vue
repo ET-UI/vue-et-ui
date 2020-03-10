@@ -1,6 +1,6 @@
 <template>
   <div id="input">
-    <h3>input组件</h3>
+    <h3>输入框input组件</h3>
     <ETInput @input="input1" placeholder="Input组件" v-model="val"></ETInput>
     <hr>
     <ETInput placeholder="Input组件-密码" type="password" v-model="val2"></ETInput>

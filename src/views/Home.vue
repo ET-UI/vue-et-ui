@@ -1,21 +1,29 @@
 <template>
   <div id="home">
     <div @click="navTo('/dialog')">
-      dialog
+      弹框 - dialog >
     </div>
     <div @click="navTo('/btn')">
-      btn
+      按钮 - btn >
     </div>
     <div @click="navTo('/picker')">
-      picker
+      选择器 - picker >
     </div>
     <div @click="navTo('/input')">
-      input
+      输入框 - input >
     </div>
   </div>
 </template>
 
 <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    console.log('DOMContentLoaded');
+  });
+
+  window.onload = function(){
+    console.log('window.onload');
+  }
+
   export default {
     name: 'home',
     mounted() {

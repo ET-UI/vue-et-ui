@@ -23,7 +23,11 @@ module.exports = {
   },
   lintOnSave: false,
   devServer: {
+    port: 9090,
     allowedHosts: [
+        `${PROJECT_NAME}.hosever.com`,
+        `${PROJECT_NAME}-dev.hosever.com`,
+        `${PROJECT_NAME}-test.hosever.com`,
     ],
   },
   css: {
