@@ -11,7 +11,7 @@
 
 
     <div class="title">
-      禁用
+      不可用
     </div>
     <ETBtn @click="bindClick" disabled>普通 不可用 disabled</ETBtn>
     <ETBtn @click="bindClick" type="hollow" :disabled="true">镂空 不可用</ETBtn>
@@ -36,7 +36,7 @@
       混合使用
     </div>
     <ETBtn @click="bindClick" size="big" type="hollow" shape="rectangle">big hollow rectangle</ETBtn>
-    <ETBtn @click="bindClick" size="big" type="black" shape="rectangle" disabled>big black rectangle disabled</ETBtn>
+    <ETBtn @click="bindClick" size="middle" type="black" shape="rectangle" disabled>middle black rectangle disabled</ETBtn>
 
   </div>
 </template>
