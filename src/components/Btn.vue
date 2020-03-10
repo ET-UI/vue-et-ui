@@ -15,7 +15,7 @@
   export default {
     name: "et-btn",
     props: {
-      //类型，不填/normal普通，disabled不可用，hollow镂空，gray灰色，black黑色
+      //类型，不填/normal普通，disabled不可用，hollow镂空，grey灰色，black黑色
       type: {
         type: String,
         default: "normal"
@@ -83,7 +83,7 @@
         color: #ebebeb;
       }
     }
-    &--gray {
+    &--grey {
       color: #222;
       background-color: transparent;
       border: 2px solid #e4e4e4;

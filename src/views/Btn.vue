@@ -6,7 +6,7 @@
     <ETBtn @click="bindClick">普通（默认） normal</ETBtn>
     <ETBtn @click="bindClick" type="disabled">不可用 disabled</ETBtn>
     <ETBtn @click="bindClick" type="hollow">镂空 hollow</ETBtn>
-    <ETBtn @click="bindClick" type="gray">灰色 gray</ETBtn>
+    <ETBtn @click="bindClick" type="grey">灰色 grey</ETBtn>
     <ETBtn @click="bindClick" type="black">黑色 black</ETBtn>
 
 
@@ -15,7 +15,7 @@
     </div>
     <ETBtn @click="bindClick" disabled>普通 不可用 disabled</ETBtn>
     <ETBtn @click="bindClick" type="hollow" :disabled="true">镂空 不可用</ETBtn>
-    <ETBtn @click="bindClick" type="gray" disabled="1">灰色 不可用</ETBtn>
+    <ETBtn @click="bindClick" type="grey" disabled="1">灰色 不可用</ETBtn>
     <ETBtn @click="bindClick" type="black" disabled="true">黑色 不可用</ETBtn>
 
     <div class="title">
