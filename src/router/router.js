@@ -7,6 +7,7 @@ import Dialog from '@/views/Dialog/index'
 import Btn from '@/views/Btn'
 import Picker from '@/views/Picker'
 import Input from '@/views/Input'
+import Switch from '@/views/Switch'
 
 Vue.use(Router)
 
@@ -19,5 +20,6 @@ export default new Router({
     {path: '/btn', name: 'btn', component: Btn},
     {path: '/picker', name: 'picker', component: Picker},
     {path: '/input', name: 'input', component: Input},
+    {path: '/switch', name: 'switch', component: Switch},
   ]
 });

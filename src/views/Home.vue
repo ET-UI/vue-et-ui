@@ -12,6 +12,9 @@
     <div @click="navTo('/input')">
       输入框 - input >
     </div>
+    <div @click="navTo('/switch')">
+      开关 - switch >
+    </div>
   </div>
 </template>
 

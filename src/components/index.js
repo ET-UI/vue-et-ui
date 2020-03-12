@@ -14,6 +14,7 @@ import ETBtn from './Btn'
 import ETPicker from './Picker'
 import ETDatePicker from './DatePicker'
 import ETInput from './Input'
+import ETSwitch from './Switch'
 
 const components = [
   Toast, Alert, Confirm
@@ -30,5 +31,5 @@ let VueEtUi = {
 export default VueEtUi;
 
 export {
-  Toast, Alert, Confirm, ETDialog, ETBtn, ETPicker, ETDatePicker, ETInput
+  Toast, Alert, Confirm, ETDialog, ETBtn, ETPicker, ETDatePicker, ETInput, ETSwitch
 };
