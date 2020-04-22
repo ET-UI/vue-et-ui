@@ -73,7 +73,7 @@
                   :z-index="10001"
                 :sync="isSync"
                 title="日期picker"
-                :range="['2018-06-20','2020-02-15']"
+                :range="['2020-04-23','2020-04-24']"
                 :show.sync="visible4"></ETDatePicker>
     <!--日期picker-时间-->
     <ETDatePicker v-model="value5"
@@ -160,7 +160,7 @@
     },
     mounted() {
       setTimeout(()=>{
-        this.value4 = '2020-01-01';
+        this.value4 = '2020-04-22';
         this.value5 = '2020-01-01 13:30';
       })
     },

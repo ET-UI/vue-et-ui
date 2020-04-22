@@ -175,10 +175,8 @@
         let endMonth = 12;
         if (year <= startYear) {
           startMonth = startDate.getMonth() + 1;
-          endMonth = 12;
         }
         if (year >= endYear) {
-          startMonth = 1;
           endMonth = endDate.getMonth() + 1;
         }
         for (let M = startMonth; M <= endMonth; M++) {
@@ -292,7 +290,7 @@
     watch: {
       show(n) {
         this.cShow = n;
-        if(n){
+        if (n) {
           this.initVal();
           this.init();
         }
